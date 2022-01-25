@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import { headerStyle } from './HeaderStyle';
 
 
-export function Header({ page, setPage }) {
+export function Header({ page, setPage, user }) {
   const style = headerStyle();
   
   const navigate = useNavigate();
@@ -17,6 +17,7 @@ export function Header({ page, setPage }) {
     Meteor.logout();    
   }
 
+  
   return (
     <header className={ style.appBar }>
       <div className={ style.appHeader }>						
@@ -28,7 +29,10 @@ export function Header({ page, setPage }) {
           page === 'signUp' ? (
             <Button variant='transparent' onClick={ () => setPage('login') }>Fazer login</Button>
           ) : (
-            <Button variant='transparent' onClick={ logout }>Sair</Button>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
+              <Typography variant='p'>Olá, { user.username }</Typography>
+              <Button variant='transparent' style={{ padding: '.2rem 0 0', margin: '0', minWidth: 'auto' }} onClick={ logout }>Sair</Button>
+            </div>
           )
         )}		   
       </div>
