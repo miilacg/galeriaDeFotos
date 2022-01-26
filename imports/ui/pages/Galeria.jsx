@@ -12,7 +12,7 @@ import { Header } from '../components/Header/Header';
 import { albumStyle } from './styles/AlbunsStyle';
 
 
-export function Albuns() {
+export function Galeria() {
   const style = albumStyle();
 
   const [openFormAlbum, setOpenFormAlbum] = useState(false);
