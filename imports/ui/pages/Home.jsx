@@ -92,7 +92,7 @@ export function Home() {
             required
           />		
 
-          <Button type='submit' variant="contained" size='large'>{ page === 'login' ? 'Entrar' : 'Concluir' }</Button>
+          <Button style={{ margin: '2rem 0 0' }} type='submit' variant="contained" size='large'>{ page === 'login' ? 'Entrar' : 'Concluir' }</Button>
         </form>	 
 
         { error && <h1>{ error } </h1> }
