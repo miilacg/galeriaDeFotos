@@ -25,7 +25,7 @@ export function FormAlbum({ setOpenFormAlbum }) {
 
 		if(!titulo || !descricao) return;
 
-		Meteor.call('album.insert', titulo, descricao);				
+		Meteor.call('albuns.insert', titulo, descricao);				
 
 		setDescricao('');
 		setTitulo('');
