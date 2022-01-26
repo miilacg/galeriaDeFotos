@@ -56,7 +56,7 @@ export function Home() {
     setUsername('');
 		setPassword('');
   }
-
+  
 
   return (
     <div className={ style.app }>
@@ -64,7 +64,7 @@ export function Home() {
       
       <div className={ style.main }>      
         <form onSubmit={ handleSubmit } className={ style.form }>
-          <Typography variant='h5'>{ page === 'login' ? 'Autentique-se' : 'Faça seu cadastro' }</Typography>
+          <Typography variant='h4'>{ page === 'login' ? 'Autentique-se' : 'Faça seu cadastro' }</Typography>
 
           { page === 'signUp' && (
             <TextField						
