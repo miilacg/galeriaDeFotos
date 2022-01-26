@@ -5,18 +5,18 @@ import Button from '@mui/material/Button';
 //import TextField from '@mui/material/TextField';
 //import Typography from '@mui/material/Typography';
 
-import { CreateAlbum } from '../components/CreateAlbum/CreateAlbum';
+import { FormAlbum } from '../components/FormAlbum/FormAlbum';
 import { Header } from '../components/Header/Header';
 
 
 export function Albuns() {
   const user = useTracker(() => Meteor.user());
 
-  const [openCreateAlbum, setOpenCreateAlbum] = useState(false);
+  const [openFormAlbum, setOpenFormAlbum] = useState(false);
 
 
-  const handleOpenCreateAlbum = () => {
-    setOpenCreateAlbum(true);
+  const handleOpenFormAlbum = () => {
+    setOpenFormAlbum(true);
   };
 
 
@@ -26,9 +26,9 @@ export function Albuns() {
         <>
           <Header page='album' user={ user }/>
 
-          { openCreateAlbum && <CreateAlbum setOpenCreateAlbum={ setOpenCreateAlbum }/> }
+          { openFormAlbum && <FormAlbum setOpenFormAlbum={ setOpenFormAlbum }/> }
           
-          <Button variant="contained" onClick={ handleOpenCreateAlbum }>Criar novo álbum</Button>
+          <Button variant="contained" onClick={ handleOpenFormAlbum }>Criar novo álbum</Button>
         </>
       ) : (
         <h1>Carregando...</h1>
