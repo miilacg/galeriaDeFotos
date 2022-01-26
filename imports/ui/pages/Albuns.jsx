@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 
 import Button from '@mui/material/Button';
-//import TextField from '@mui/material/TextField';
-//import Typography from '@mui/material/Typography';
 
 import { AlbunsCollection } from '../../db/AlbunsCollection';
 
@@ -40,7 +38,7 @@ export function Albuns() {
     setOpenFormAlbum(true);
   };
 
-  
+
   return (
     <div>
       { !isLoading && user ? (

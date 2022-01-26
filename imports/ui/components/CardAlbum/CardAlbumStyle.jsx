@@ -3,8 +3,9 @@ import { makeStyles } from "@mui/styles";
 
 const cardAlbumStyle = makeStyles(() => ({
   card: {
-    width: '27.86%',
-    padding: '1rem 2rem'
+    width: '25%',
+    padding: '1rem',
+    boxSizing: 'border-box'
   },
 
   foto: {
