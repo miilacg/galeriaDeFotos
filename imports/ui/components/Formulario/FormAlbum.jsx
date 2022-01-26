@@ -5,12 +5,12 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-import { formAlbumStyle } from './FormAlbumStyle';
+import { formularioStyle } from './FormularioStyle';
 
 
 
 export function FormAlbum({ setOpenFormAlbum }) {
-	const classes = formAlbumStyle();
+	const classes = formularioStyle();
 
   const [descricao, setDescricao] = useState();
   const [titulo, setTitulo] = useState();

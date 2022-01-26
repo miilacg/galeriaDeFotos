@@ -1,7 +1,7 @@
 import { makeStyles } from "@mui/styles";
 
 
-const formAlbumStyle = makeStyles((theme) => ({
+const formularioStyle = makeStyles((theme) => ({
 	modal: {
     position: 'absolute',
     width: 'auto',
@@ -31,5 +31,5 @@ const formAlbumStyle = makeStyles((theme) => ({
 
 
 export {
-  formAlbumStyle
+  formularioStyle
 };
