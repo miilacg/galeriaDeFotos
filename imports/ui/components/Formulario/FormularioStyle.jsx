@@ -19,6 +19,12 @@ const formularioStyle = makeStyles((theme) => ({
     margin: '0rem .5rem .5rem'
   },
 
+  textField: {
+		'& > *': {
+			margin: theme.spacing(2, 0, 0),
+		},
+	},
+
   botoes: {
     display: 'flex',
     justifyContent: 'space-between'
