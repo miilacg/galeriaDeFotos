@@ -28,7 +28,7 @@ Meteor.methods ({
 		}
 
 		// verificando a permissão do usuario
-		const album = AlbunsCollection.findOne({ _id: albumId, userId: this.userId });
+		const album = AlbunsCollection.findOne({ _id: albumId, createdby: this.userId });
 
 		if(!album) {
 			throw new Meteor.Error('Access denied.');
@@ -37,7 +37,8 @@ Meteor.methods ({
 		AlbunsCollection.remove(albumId);
 	},
 	
-	'albuns.edit'(titulo, descricao) {
+	'albuns.edit'(albumId, titulo, descricao) {
+		check(albumId, String);
 		check(titulo, String);
 		check(descricao, String);
 
@@ -46,7 +47,7 @@ Meteor.methods ({
 		}
 
 		// verificando a permissão do usuario
-		const album = AlbunsCollection.findOne({ _id: albumId, userId: this.userId });
+		const album = AlbunsCollection.findOne({ _id: albumId, createdby: this.userId });
 
 		if(!album) {
 			throw new Meteor.Error('Access denied.');
@@ -60,5 +61,27 @@ Meteor.methods ({
 				updatedby: this.userId
 			}
 		});
-	}
+	},
+
+	'albuns.setFoto'(albumId, foto) {
+		check(albumId, String);
+		check(foto, String);
+
+		if (!this.userId) {
+			throw new Meteor.Error('Not authorized.');
+		}
+
+		// verificando a permissão do usuario
+		const album = AlbunsCollection.findOne({ _id: albumId, createdby: this.userId });
+
+		if(!album) {
+			throw new Meteor.Error('Access denied.');
+		}
+
+		AlbunsCollection.update(albumId, {
+			$set: {
+				foto
+			},
+		});
+	},
 });
