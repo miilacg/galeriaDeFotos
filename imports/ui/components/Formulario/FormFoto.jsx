@@ -99,7 +99,6 @@ export function FormFoto({ album, setOpenFormFoto }) {
             label="Título da foto"
             type="text"
             onChange={ (e) => setTitulo(e.target.value) }
-            className={ classes.textField }
             required
           />
 
@@ -108,7 +107,6 @@ export function FormFoto({ album, setOpenFormFoto }) {
             label="Descrção da foto"
             type="text"
             onChange={ (e) => setDescricao(e.target.value) }
-            className={ classes.textField }
             required
             multiline
           />
@@ -119,7 +117,6 @@ export function FormFoto({ album, setOpenFormFoto }) {
             type="datetime-local"
             value={ dataDeAquisicao }
             onChange={ (e) => setDataDeAquisicao(e.target.value) } 
-            className={ classes.textField }
             InputLabelProps={{
               shrink: true,
             }}
@@ -131,7 +128,6 @@ export function FormFoto({ album, setOpenFormFoto }) {
             label="Cor predominante da foto"
             type="color"
             onChange={ (e) => setCor(e.target.value) }
-            className={ classes.textField }
             required
           />
 
