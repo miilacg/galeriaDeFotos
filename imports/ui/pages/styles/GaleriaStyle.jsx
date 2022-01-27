@@ -1,11 +1,11 @@
 import { makeStyles } from "@mui/styles";
 
 
-const albumStyle = makeStyles(() => ({
+const galeriaStyle = makeStyles(() => ({
   container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    margin: '2rem 0'
+    //display: 'flex',
+    //flexWrap: 'wrap',
+    margin: '2rem'
   },
 
   botao: {
@@ -17,5 +17,5 @@ const albumStyle = makeStyles(() => ({
 
 
 export {
-  albumStyle
+  galeriaStyle
 };

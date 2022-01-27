@@ -35,7 +35,7 @@ export function Home() {
     if(page == 'login') {
       Meteor.loginWithPassword(email, password, function (error) {
 				if(!error) {
-					navigate('/albuns');
+					navigate('/galeria');
 				} else {
           alert(error);
           setError('Erro!');
@@ -44,7 +44,7 @@ export function Home() {
     } else {
       Meteor.call('users.insert', username, password, email, function (error) {
 				if(!error) {
-					navigate('/albuns');
+					navigate('/galeria');
 				} else {
           alert(error);
           setError('Erro!');

@@ -7,6 +7,9 @@ const albumStyle = makeStyles(() => ({
   },
 
   cabecalho: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'end',
     marginBottom: '2rem'
   },
 
