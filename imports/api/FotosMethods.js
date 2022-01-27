@@ -30,7 +30,8 @@ Meteor.methods ({
 		});
 	},
 	
-	'fotos.edit'(foto, titulo, descricao, dataDeAquisicao, tamanho, cor) {
+	'fotos.edit'(fotoId, foto, titulo, descricao, dataDeAquisicao, tamanho, cor) {
+		check(fotoId, String);
 		check(foto, String);
 		check(titulo, String);
     check(descricao, String);

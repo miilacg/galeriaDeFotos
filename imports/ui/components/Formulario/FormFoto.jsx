@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTracker } from 'meteor/react-meteor-data';
 
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
@@ -10,10 +11,8 @@ import { formularioStyle } from './FormularioStyle';
 
 
 
-export function FormFoto({ setOpenFormFoto }) {
+export function FormFoto({ album, setOpenFormFoto }) {
 	const classes = formularioStyle();
-
-	const { albumId } = useParams();
 
   const [cor, setCor] = useState('');
   const [dataDeAquisicao, setDataDeAquisicao] = useState('');
@@ -23,7 +22,7 @@ export function FormFoto({ setOpenFormFoto }) {
   const [titulo, setTitulo] = useState('');
 
 
-	const handleClose = () => {
+  const handleClose = () => {
     setOpenFormFoto(false);
   };
 
@@ -35,15 +34,15 @@ export function FormFoto({ setOpenFormFoto }) {
     
     const data = e.target.files[0].lastModifiedDate;
     
-    const tempDate = data.getTime();
     const day = String(data.getDate()).padStart(2, '0');
     const month = String(data.getMonth() + 1).padStart(2, '0');
     const year = data.getFullYear();
     const hour = String(data.getHours()).padStart(2, '0');
     const minute = String(data.getMinutes()).padStart(2, '0');
 
-    setDataDeAquisicao(year + '-' + month + '-' + day + 'T' + hour + ':' + minute)
-    setTamanho(e.target.files[0].size)
+    setDataDeAquisicao(year + '-' + month + '-' + day + 'T' + hour + ':' + minute);
+    setTamanho(e.target.files[0].size);
+    
     reader.readAsDataURL(e.target.files[0]);
 	};
 
@@ -53,15 +52,20 @@ export function FormFoto({ setOpenFormFoto }) {
 
 		if(!cor || !dataDeAquisicao || !descricao || !foto || !titulo) return;
 
-    const tempCurrentDate = new Date();
+    /*const tempCurrentDate = new Date();
 		const tempDateSelected = new Date(dataDeAquisicao);
 
-    if(tempCurrentDate.getTime() >= tempDateSelected.getTime()) {
+    if(tempDateSelected.getTime() > tempCurrentDate.getTime()) {
       console.log("Data em que a foto foi tirada é superior a data atual. Digite uma data valida")
 			return; 
-		}   
+		} */  
 
-		Meteor.call('fotos.insert', foto, albumId, titulo, descricao, dataDeAquisicao, tamanho, cor);				
+    Meteor.call('fotos.insert', foto, album._id, titulo, descricao, dataDeAquisicao, tamanho, cor);	
+    Meteor.call('albuns.edit', album._id, album.titulo, album.descricao, foto, function (error) {
+      if(error) {				
+        console.log(error)
+      } 
+    })	
 
 		setCor('');
 		setDataDeAquisicao('');
@@ -81,7 +85,7 @@ export function FormFoto({ setOpenFormFoto }) {
 			<div className={ classes.modal } style={{ width: '50%' }}>
 				<Typography variant='h4'>Preencha os campos</Typography>
 
-				<form onSubmit={ handleSubmit } className={ classes.formulario }>          
+        <form onSubmit={ handleSubmit } className={ classes.formulario }>          
           <input
             id="img-input" 
             onChange={ uploadImg } 
