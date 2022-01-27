@@ -26,14 +26,13 @@ export function FormFoto({ album, setOpenFormFoto }) {
     setOpenFormFoto(false);
   };
 
-  function uploadImg (e) {
+  function uploadImg(e) {
     var reader = new FileReader();
     reader.onload = function (e) {
 			setFoto(e.target.result);
     };
-    
-    const data = e.target.files[0].lastModifiedDate;
-    
+
+    const data = e.target.files[0].lastModifiedDate;    
     const day = String(data.getDate()).padStart(2, '0');
     const month = String(data.getMonth() + 1).padStart(2, '0');
     const year = data.getFullYear();
@@ -124,7 +123,7 @@ export function FormFoto({ album, setOpenFormFoto }) {
           />
 
           <TextField					
-            value={ titulo }
+            value={ cor }
             label="Cor predominante da foto"
             type="color"
             onChange={ (e) => setCor(e.target.value) }
