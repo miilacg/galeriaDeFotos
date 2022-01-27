@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useTracker } from 'meteor/react-meteor-data';
 
 import Button from '@mui/material/Button';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
 
 import { AlbunsCollection } from '../../db/AlbunsCollection';
 
-import { CardAlbum } from '../components/CardAlbum/CardAlbum'
-import { FormAlbum } from '../components/FormAlbum/FormAlbum';
+import { FormAlbum } from '../components/Formulario/FormAlbum';
 import { Header } from '../components/Header/Header';
 
-import { albumStyle } from './styles/AlbunsStyle';
+import { galeriaStyle } from './styles/GaleriaStyle';
+
 
 
 export function Galeria() {
-  const style = albumStyle();
+  const style = galeriaStyle();
 
   const [openFormAlbum, setOpenFormAlbum] = useState(false);
 
@@ -45,14 +49,29 @@ export function Galeria() {
         <>
           <Header page='album' user={ user }/>
 
-          <div className={ style.container }>
-            { albuns.map(album => ( 
-              <CardAlbum 
-                descricao={ album.descricao }
-                titulo={ album.titulo }
-              />
-            )) }            
-          </div>
+          <ImageList className={ style.container } style={{ gridTemplateColumns: 'repeat(3, 1fr)'}}>
+            { albuns.map((album) => (
+              <Link to={ `/album/${ album._id }` } className={ style.card } key={ album._id }>
+                <ImageListItem key={ album._id }>
+                  { album.foto ? (
+                    <img
+                      src={ album.foto }
+                      alt= 'teste'
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div style={{ height: '10rem' }}></div>
+                  )}
+
+                  <ImageListItemBar
+                    title={ album.titulo }
+                    subtitle={ album.descricao }
+                    position="below"
+                  />
+                </ImageListItem>              
+              </Link>
+            ))}
+          </ImageList>
 
           { openFormAlbum && <FormAlbum setOpenFormAlbum={ setOpenFormAlbum }/> }
           
