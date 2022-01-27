@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import { AlbunsCollection } from '../../db/AlbunsCollection';
 import { FotosCollection } from '../../db/FotosCollection';
 
+import { FormAlbum } from '../components/Formulario/FormAlbum';
 import { FormFoto } from '../components/Formulario/FormFoto';
 import { Header } from "../components/Header/Header";
 
@@ -21,7 +22,17 @@ import { albumStyle } from './styles/AlbumStyle';
 export function Album() {
   const style = albumStyle();
 
+  const [openFormAlbum, setOpenFormAlbum] = useState(false);
   const [openFormFoto, setOpenFormFoto] = useState(false);
+
+  const handleOpenFormAlbum = () => {
+    setOpenFormAlbum(true);
+  };
+
+  const handleOpenFormFoto = () => {
+    setOpenFormFoto(true);
+  };
+
 
   const user = useTracker(() => Meteor.user());
   const { albumId } = useParams();
@@ -47,10 +58,6 @@ export function Album() {
     return { album, fotos };
   });
 
-  const handleOpenFormFoto = () => {
-    setOpenFormFoto(true);
-  };
-
 
   return (
     <div>
@@ -64,7 +71,12 @@ export function Album() {
                 <Typography variant='h2'> { album.titulo }</Typography>
                 <Typography variant='h5'> { album.descricao }</Typography>
               </div>
+              <div>
+                <Button variant='transparent' onClick={ handleOpenFormAlbum }>Editar álbum</Button>
+              </div>
             </div>
+
+            { openFormAlbum && <FormAlbum acao='editar' album={ album } setOpenFormAlbum={ setOpenFormAlbum }/> }
 
             <ImageList style={{ gridTemplateColumns: 'repeat(3, 1fr)'}}>
               { fotos.map((foto) => (

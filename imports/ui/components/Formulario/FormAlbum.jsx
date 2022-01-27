@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
@@ -9,11 +9,17 @@ import { formularioStyle } from './FormularioStyle';
 
 
 
-export function FormAlbum({ setOpenFormAlbum }) {
+export function FormAlbum({ acao, album, setOpenFormAlbum }) {
 	const classes = formularioStyle();
 
-  const [descricao, setDescricao] = useState();
-  const [titulo, setTitulo] = useState();
+  const [descricao, setDescricao] = useState('');
+  const [titulo, setTitulo] = useState('');
+
+
+  useEffect(() => {
+    setDescricao(album.descricao);
+    setTitulo(album.titulo);
+	}, [album]);
 
 
 	const handleClose = () => {
@@ -25,7 +31,17 @@ export function FormAlbum({ setOpenFormAlbum }) {
 
 		if(!titulo || !descricao) return;
 
-		Meteor.call('albuns.insert', titulo, descricao);				
+    if(acao == 'criar') { // Adicionando um novo álbum
+      Meteor.call('albuns.insert', titulo, descricao);
+		}
+			
+    if(acao == 'editar') { // Editando o álbum
+			Meteor.call('albuns.edit', album._id, titulo, descricao, function (error) {
+				if(error) {				
+					console.log(error)
+				} 
+			})
+		}
 
 		setDescricao('');
 		setTitulo('');
@@ -56,11 +72,12 @@ export function FormAlbum({ setOpenFormAlbum }) {
             type="text"
             onChange={ (e) => setDescricao(e.target.value) }
             required
+            multiline
           />
 
           <div className={ classes.botoes }>
             <Button style={{ margin: '1rem 0 0' }} variant="contained" onClick={ () => handleClose() }>Fechar</Button>
-            <Button style={{ margin: '1rem 0 0' }} type='submit' variant="contained">Criar álbum</Button>
+            <Button style={{ margin: '1rem 0 0' }} type='submit' variant="contained">{ acao == 'criar' ? 'Criar álbum' : 'Editar álbum' }</Button>
           </div>
         </form>	
 			</div>

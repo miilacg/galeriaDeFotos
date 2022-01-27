@@ -73,7 +73,7 @@ export function Galeria() {
             ))}
           </ImageList>
 
-          { openFormAlbum && <FormAlbum setOpenFormAlbum={ setOpenFormAlbum }/> }
+          { openFormAlbum && <FormAlbum acao='criar' setOpenFormAlbum={ setOpenFormAlbum }/> }
           
           <Button className={ style.botao } variant="contained" onClick={ handleOpenFormAlbum }>Criar novo álbum</Button>
         </>
