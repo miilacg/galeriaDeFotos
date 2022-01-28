@@ -13,9 +13,12 @@ const albumStyle = makeStyles(() => ({
     marginBottom: '2rem'
   },
 
-  botao: {
+  botoes: {
     position: 'fixed !important',
+    display: 'flex',
+    justifyContent: 'space-between',
     bottom: '4%',
+    left: '4%',
     right: '4%'
   }
 }));

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useTracker } from 'meteor/react-meteor-data';
 
 import PropTypes from 'prop-types';
@@ -101,6 +101,8 @@ TablePaginationActions.propTypes = {
 export function Album() {
   const style = albumStyle();
 
+  const navigate = useNavigate();
+
   const [modoExibicao, setModoExibicao] = useState('miniatura');
   const [openFormAlbum, setOpenFormAlbum] = useState(false);
   const [openFormFoto, setOpenFormFoto] = useState(false);
@@ -151,6 +153,18 @@ export function Album() {
 
     return { album, fotos };
   });
+
+
+  async function deleteAlbum(_id) {
+    if(window.confirm('Tem certeza que você deseja excluir o álbum?')) {
+      if(fotos.length === 0) {
+        await Meteor.call('albuns.remove', _id);
+        navigate('/galeria');
+      } else {
+        alert("O álbum só pode ser excluido quando não tiver mais fotos nele!");
+      }
+    }  
+  }
 
 
   return (
@@ -304,7 +318,10 @@ export function Album() {
 
           { openFormFoto && <FormFoto acao='criar' album={ album } setOpenFormFoto={ setOpenFormFoto }/> }
 
-          <Button className={ style.botao } variant="contained" onClick={ () => setOpenFormFoto(true) }>Adicionar fotos</Button>
+          <div className={ style.botoes }>
+            <Button variant="contained" style={{ background: '#cb0303' }} onClick={ () => deleteAlbum(album._id) }>Excluir álbum</Button>
+            <Button variant="contained" onClick={ () => setOpenFormFoto(true) }>Adicionar fotos</Button>
+          </div>
         </>
       ) : (
         <h1>Carregando...</h1>
