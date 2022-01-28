@@ -32,6 +32,7 @@ import { FotosCollection } from '../../db/FotosCollection';
 import { FormAlbum } from '../components/Formulario/FormAlbum';
 import { FormFoto } from '../components/Formulario/FormFoto';
 import { Header } from "../components/Header/Header";
+import { ModalFoto } from '../components/ModalFoto/ModalFoto';
 
 import { albumStyle } from './styles/AlbumStyle';
 
@@ -104,8 +105,10 @@ export function Album() {
   const navigate = useNavigate();
 
   const [modoExibicao, setModoExibicao] = useState('miniatura');
+  const [openFoto, setOpenFoto] = useState(false);
   const [openFormAlbum, setOpenFormAlbum] = useState(false);
   const [openFormFoto, setOpenFormFoto] = useState(false);
+  const [modalFoto, setModalFoto] = useState(false);
 
   const [page, setPage] = React.useState(0);
   const [fotosPorPagina, setFotosPorPagina] = React.useState(10);  
@@ -164,6 +167,10 @@ export function Album() {
         alert("O álbum só pode ser excluido quando não tiver mais fotos nele!");
       }
     }  
+  }
+
+  function handleOpenFoto(foto) {
+    setModalFoto(foto);    
   }
 
 
@@ -298,24 +305,20 @@ export function Album() {
             ) : (              
               <ImageList style={{ gridTemplateColumns: 'repeat(3, 1fr)'}}>
                 { fotos.map((foto) => (
-                  <ImageListItem key={ foto._id }>
+                  <ImageListItem key={ foto._id } onClick={ () => { handleOpenFoto(foto); setOpenFoto(true); }} style={{ cursor: 'pointer' }}>
                     <img
+                      style={{ height: '15rem' }}
                       src={ foto.foto }
                       alt= { foto.descricao }
                       loading="lazy"
                     />
-
-                    <ImageListItemBar
-                      title={ foto.titulo }
-                      subtitle={ foto.descricao }
-                      position="below"
-                    />
-                  </ImageListItem>              
+                  </ImageListItem>
                 ))}
               </ImageList>
             )}
           </div>
 
+          { openFoto && <ModalFoto foto={ modalFoto } setOpenFoto={ setOpenFoto }/> }
           { openFormFoto && <FormFoto acao='criar' album={ album } setOpenFormFoto={ setOpenFormFoto }/> }
 
           <div className={ style.botoes }>
