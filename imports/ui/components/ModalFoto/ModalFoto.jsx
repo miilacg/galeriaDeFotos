@@ -31,7 +31,7 @@ export function ModalFoto({ foto, setOpenFoto }) {
 		>
       <div className={ classes.container }>
         <div className={ classes.modal }>
-          <Typography>{ foto.titulo }</Typography>
+          <Typography variant='h5'>{ foto.titulo }</Typography>
           <img
             src={ foto.foto }
             alt= { foto.descricao }

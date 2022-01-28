@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 
 const headerStyle = makeStyles(() => ({
   appBar: {
-    zIndex: '9999',
+    zIndex: '999',
     position: 'relative',
     padding: '1.4rem 4% 1.4rem 3.5%',
 
