@@ -2,6 +2,12 @@ import { makeStyles } from "@mui/styles";
 
 
 const modalFotoStyle = makeStyles((theme) => ({
+  container: {
+    '&:focus-visible': {
+      outline: 'none'
+    }
+  },
+
 	modal: {
     zIndex: '1000',
 

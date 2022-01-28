@@ -29,6 +29,23 @@ Meteor.methods ({
 			createdby: this.userId
 		});
 	},
+
+	'fotos.remove'(fotoId) {
+		check(fotoId, String);
+
+		if (!this.userId) {
+			throw new Meteor.Error('Você não tem autorização.');
+		}
+
+		// verificando a permissão do usuario
+		const foto = FotosCollection.findOne({ _id: fotoId, createdby: this.userId });
+
+		if(!foto) {
+			throw new Meteor.Error('Access denied.');
+		}
+
+		FotosCollection.remove(fotoId);
+	},
 	
 	'fotos.edit'(fotoId, foto, titulo, descricao, dataDeAquisicao, tamanho, cor) {
 		check(fotoId, String);
