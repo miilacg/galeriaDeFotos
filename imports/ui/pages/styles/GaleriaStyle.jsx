@@ -3,9 +3,16 @@ import { makeStyles } from "@mui/styles";
 
 const galeriaStyle = makeStyles(() => ({
   container: {
-    //display: 'flex',
-    //flexWrap: 'wrap',
     margin: '2rem'
+  },
+
+  iconFoto: {
+    display: 'flex',
+    position: 'relative',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    color: '#72838359'
   },
 
   botao: {

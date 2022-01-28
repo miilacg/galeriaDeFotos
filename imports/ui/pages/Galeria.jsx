@@ -7,7 +7,10 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 
+import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
+
 import { AlbunsCollection } from '../../db/AlbunsCollection';
+import { FotosCollection } from '../../db/FotosCollection';
 
 import { FormAlbum } from '../components/Formulario/FormAlbum';
 import { Header } from '../components/Header/Header';
@@ -28,15 +31,26 @@ export function Galeria() {
       return noDataAvailable;
     }
 
-    const handler = Meteor.subscribe('albuns');
-    if (!handler.ready()) {
+    const handlerAlbuns = Meteor.subscribe('albuns');
+    if (!handlerAlbuns.ready()) {
+      return { ...noDataAvailable, isLoading: true };
+    }
+
+    const handlerFotos = Meteor.subscribe('fotos');
+    if (!handlerFotos.ready()) {
       return { ...noDataAvailable, isLoading: true };
     }
 
     const albuns = AlbunsCollection.find({ createdby: user._id }, { sort: { titulo: 1 }}).fetch();
+    let foto = [];
+    albuns.map((album, index) => (
+      foto[index] = FotosCollection.findOne({ albumId: album._id }, { sort: { createdAt: -1 }}),
+      album.foto = foto[index] && foto[index].foto
+    ));
 
     return { albuns };
   });
+
 
   const handleOpenFormAlbum = () => {
     setOpenFormAlbum(true);
@@ -55,12 +69,15 @@ export function Galeria() {
                 <ImageListItem key={ album._id }>
                   { album.foto ? (
                     <img
+                      style={{ height: '15rem' }}
                       src={ album.foto }
-                      alt= 'teste'
+                      alt={ album.descricao }
                       loading="lazy"
                     />
                   ) : (
-                    <div style={{ height: '10rem' }}></div>
+                    <div style={{ height: '15rem', background: '#83a5a559' }}>
+                      <InsertPhotoIcon className={ style.iconFoto } />
+                    </div>
                   )}
 
                   <ImageListItemBar

@@ -60,12 +60,7 @@ export function FormFoto({ album, setOpenFormFoto }) {
 		} */  
 
     Meteor.call('fotos.insert', foto, album._id, titulo, descricao, dataDeAquisicao, tamanho, cor);	
-    Meteor.call('albuns.setFoto', album._id, foto, function (error) {
-      if(error) {				
-        console.log(error)
-      } 
-    })	
-
+  
 		setCor('');
 		setDataDeAquisicao('');
     setDescricao('');
