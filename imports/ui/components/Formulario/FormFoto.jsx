@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useTracker } from 'meteor/react-meteor-data';
 
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+
+import Alert from '@mui/material/Alert';
 
 import { formularioStyle } from './FormularioStyle';
 
@@ -13,6 +13,8 @@ import { formularioStyle } from './FormularioStyle';
 
 export function FormFoto({ album, setOpenFormFoto }) {
 	const classes = formularioStyle();
+
+  const [erroData, setErroData] = useState(false);
 
   const [cor, setCor] = useState('');
   const [dataDeAquisicao, setDataDeAquisicao] = useState('');
@@ -51,14 +53,15 @@ export function FormFoto({ album, setOpenFormFoto }) {
 
 		if(!cor || !dataDeAquisicao || !descricao || !foto || !titulo) return;
 
-    /*const tempCurrentDate = new Date();
-		const tempDateSelected = new Date(dataDeAquisicao);
+    const dataHoje = new Date();
+		const dataInserida = new Date(dataDeAquisicao);
 
-    if(tempDateSelected.getTime() > tempCurrentDate.getTime()) {
-      console.log("Data em que a foto foi tirada é superior a data atual. Digite uma data valida")
+    if(dataInserida.getTime() >= dataHoje.getTime()) {
+      setErroData(true);
 			return; 
-		} */  
+		}
 
+    setErroData(false);
     Meteor.call('fotos.insert', foto, album._id, titulo, descricao, dataDeAquisicao, tamanho, cor);	
   
 		setCor('');
@@ -116,6 +119,8 @@ export function FormFoto({ album, setOpenFormFoto }) {
             }}
             required
           />
+
+          { erroData && <Alert severity="error">Data em que a foto foi tirada deve ser anterior a data atual</Alert> }
 
           <TextField					
             value={ cor }

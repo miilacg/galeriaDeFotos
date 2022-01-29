@@ -18,6 +18,20 @@ export const theme = createTheme({
     caption: appStyles.caption
   },
   components: {
+    MuiAlert: {
+      defaultProps: {},
+      styleOverrides: {
+        root: {
+          alignItems: 'center',
+          height: '1.5rem',
+          margin: '.5rem auto',
+          padding: '.5rem 1.5rem',
+          '& svg': {
+            fontSize: '1.8rem'
+          }
+        },
+      }
+    },
     MuiButton: {
       defaultProps: {
         variant: 'secondary'

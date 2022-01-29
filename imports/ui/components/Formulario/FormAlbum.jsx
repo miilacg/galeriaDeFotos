@@ -17,8 +17,10 @@ export function FormAlbum({ acao, album, setOpenFormAlbum }) {
 
 
   useEffect(() => {
-    setDescricao(album.descricao);
-    setTitulo(album.titulo);
+    if(album) {      
+      setDescricao(album.descricao);
+      setTitulo(album.titulo);
+    }
 	}, [album]);
 
 
