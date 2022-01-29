@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Meteor } from 'meteor/meteor';
 
+import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -22,7 +23,7 @@ export function Home() {
 	const [password, setPassword] = useState('');
   const [page, setPage] = useState('login');
 
-  const [error, setError] = useState('');
+  const [erro, setErro] = useState('');
    
 
   async function handleSubmit(event) { 
@@ -37,8 +38,15 @@ export function Home() {
 				if(!error) {
 					navigate('/galeria');
 				} else {
-          alert(error);
-          setError('Erro!');
+          if (error.reason === 'User not found') {
+            setErro('E-mail incorreto');
+          } else {
+            if (erro.reason === 'Incorrect password') {
+              setErro('Senha incorreta')
+            } else {
+              setErro('Algum erro aconteceu. Tente mais tarde')
+            }
+          }
 				}
 			});
     } else {
@@ -46,8 +54,11 @@ export function Home() {
 				if(!error) {
 					navigate('/galeria');
 				} else {
-          alert(error);
-          setError('Erro!');
+          if (error.error === 'E-mail já existe') {
+            setErro('E-mail incorreto');
+          } else {
+            setErro('Algum erro aconteceu. Tente mais tarde')
+          }
 				}
 			})   
     } 
@@ -77,7 +88,7 @@ export function Home() {
           )}
 
           <TextField						
-            type="text"
+            type="email"
             placeholder="E-mail"
             value={ email }				
             onChange={ (e) => setEmail(e.target.value) }
@@ -92,10 +103,10 @@ export function Home() {
             required
           />		
 
+          { erro && <Alert severity="error">{ erro }</Alert> }
+
           <Button style={{ margin: '2rem 0 0' }} type='submit' variant="contained" size='large'>{ page === 'login' ? 'Entrar' : 'Concluir' }</Button>
         </form>	 
-
-        { error && <h1>{ error } </h1> }
       </div>
     </div>
   )
