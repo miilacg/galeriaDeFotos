@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -20,8 +20,10 @@ export function Header({ page, setPage, user }) {
   
   return (
     <header className={ style.appBar }>
-      <div className={ style.appHeader }>						
-        <Typography variant='h3'> Meus álbuns de foto </Typography>
+      <div className={ style.appHeader }>
+        <Link variant='transparent' style={{ textDecoration: 'none' }} to={ page == 'album' ? '/galeria' : '/' }>
+          <Typography variant='h3'> Meus álbuns de foto </Typography>
+        </Link>
         
         { page === 'login' ? (
           <Button variant='transparent' onClick={ () => setPage('signUp') }>Criar conta</Button>

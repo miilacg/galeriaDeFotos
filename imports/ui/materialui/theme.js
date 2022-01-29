@@ -40,7 +40,7 @@ export const theme = createTheme({
         {
           props: { variant: 'transparent' },
           style: {
-            margin: '0 2rem',
+            margin: '0',
             padding: '10px',
             backgroundColor: 'transparent',
             fontSize: '1.05rem',
