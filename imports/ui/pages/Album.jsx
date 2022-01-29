@@ -326,7 +326,11 @@ export function Album() {
           </div>
         </>
       ) : (
-        <h1>Carregando...</h1>
+        !user ? (
+          navigate('/')
+        ) : (
+          <h1>Carregando...</h1>
+        )
       )}      
     </div>
   )

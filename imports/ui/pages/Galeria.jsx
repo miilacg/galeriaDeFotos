@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useTracker } from 'meteor/react-meteor-data';
 
 import Button from '@mui/material/Button';
@@ -21,6 +21,8 @@ import { galeriaStyle } from './styles/GaleriaStyle';
 
 export function Galeria() {
   const style = galeriaStyle();
+
+  const navigate = useNavigate();
 
   const [openFormAlbum, setOpenFormAlbum] = useState(false);
 
@@ -95,7 +97,11 @@ export function Galeria() {
           <Button className={ style.botao } variant="contained" onClick={ handleOpenFormAlbum }>Criar novo álbum</Button>
         </>
       ) : (
-        <h1>Carregando...</h1>
+        !user ? (
+          navigate('/')
+        ) : (
+          <h1>Carregando...</h1>
+        )
       )}      
     </div>
   )
